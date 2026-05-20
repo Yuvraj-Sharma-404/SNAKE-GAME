@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 section .infos{
     width: 100%;
     display: flex;
@@ -16,10 +15,9 @@ section .infos{
 }
 
 .block{
-    /* width: 30px;
-    height: 30px; */
-    border: 1px solid #333;
-    border-radius: 50%;
+    border: 1px solid #0a0a0a ;
+    border-radius: 30%;
+    
 }
 
 .fill{
@@ -28,6 +26,8 @@ section .infos{
 
 .food{
     background-color: #ff3b3b;
+    border-radius: 50%;
+    
 }
 
 .modal{
@@ -46,4 +46,25 @@ section .infos{
 
 .btn:hover{
     transform: scale(1.1);
+}
+
+.head{
+    background-image: url(/snake.gif);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    /* border-radius: 50%; */
+}
+
+
+h3{
+    font-size: 24px;
+}
+
+#high-score,
+#score,
+#time{
+    font-size: 18px;
+    display: block;
+    text-align: center;
 }
