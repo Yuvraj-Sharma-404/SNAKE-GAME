@@ -49,11 +49,8 @@ section .infos{
 }
 
 .head{
-    background-image: url(/snake.gif);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    /* border-radius: 50%; */
+    border-radius: 50%;
+    background-color: #fdfdfc;
 }
 
 
