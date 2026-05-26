@@ -13,6 +13,10 @@ let canChangeDirection = true;
 let highScore = localStorage.getItem("highScore") || 0;
 let score = 0;
 let time = `00-00`;
+let gameSpeed = 200;
+const eatSound = document.querySelector("#eat-sound");
+const gameOverSound = document.querySelector("#gameover-sound");
+const backgroundSong = document.querySelector("#song");
 highScoreElement.innerText = highScore;
 const cols = Math.floor(board.clientWidth / blockWidth);
 const rows = Math.floor(board.clientHeight / blockHeight);
@@ -43,9 +47,22 @@ for (let row = 0; row < rows; row++) {
   }
 }
 
+function updatespeed() {
+  const newSpeed = Math.max(60, 200 - Math.floor(score / 20) * 10);
+
+  if (newSpeed !== gameSpeed) {
+    gameSpeed = newSpeed;
+
+    clearInterval(intervalId);
+
+    intervalId = setInterval(() => {
+      render();
+    }, gameSpeed);
+  }
+}
+
 function render() {
   let head = null;
-
   // FOOD
   blocks[`${food.x}-${food.y}`].classList.add("food");
 
@@ -62,25 +79,21 @@ function render() {
 
   // WALL COLLISION
   if (head.x < 0 || head.x >= rows || head.y < 0 || head.y >= cols) {
-    clearInterval(intervalId);
-    clearInterval(timerIntervalId);
-
-    modal.style.display = "flex";
-    startGameModal.style.display = "none";
-    gameOverModal.style.display = "flex";
-
+    backgroundSong.pause();
+    backgroundSong.currentTime = 0;
+    gameOverSound.currentTime = 0;
+    gameOverSound.play();
+    gameOverAnimation();
     return;
   }
 
   // SELF COLLISION
   if (snake.some((segment) => segment.x === head.x && segment.y === head.y)) {
-    clearInterval(intervalId);
-    clearInterval(timerIntervalId);
-
-    modal.style.display = "flex";
-    startGameModal.style.display = "none";
-    gameOverModal.style.display = "flex";
-
+    backgroundSong.pause();
+    backgroundSong.currentTime = 0;
+    gameOverSound.currentTime = 0;
+    gameOverSound.play();
+    gameOverAnimation();
     return;
   }
 
@@ -96,7 +109,17 @@ function render() {
   // FOOD EAT
   if (head.x === food.x && head.y === food.y) {
     score += 10;
+    if (score % 100 === 0) {
+      scoreElement.classList.add("blink");
+
+      setTimeout(() => {
+        scoreElement.classList.remove("blink");
+      }, 1000);
+    }
+    eatSound.currentTime = 0;
+    eatSound.play();
     scoreElement.innerText = score;
+    updatespeed();
 
     snake.unshift(head);
 
@@ -146,9 +169,10 @@ function render() {
 
 startButton.addEventListener("click", () => {
   modal.style.display = "none";
+  backgroundMusicPlayer();
   intervalId = setInterval(() => {
     render();
-  }, 200);
+  }, gameSpeed);
   timerIntervalId = setInterval(() => {
     const currentTime = time.split("-");
     let minutes = parseInt(currentTime[0]);
@@ -173,15 +197,16 @@ function restartGame() {
     blocks[`${food.x}-${food.y}`].classList.remove("food");
     block.classList.remove("head");
     block.classList.remove("fill");
-
     block.style.transform = "";
   });
+  gameSpeed = 200;
   score = 0;
   time = `00-00`;
   scoreElement.innerText = score;
   timeElement.innerText = time;
   highScoreElement.innerText = highScore;
   modal.style.display = "none";
+  backgroundMusicPlayer();
   direction = "up";
   snake = [
     { x: rows - 4, y: Math.floor(cols / 2) },
@@ -199,7 +224,7 @@ function restartGame() {
   );
   intervalId = setInterval(() => {
     render();
-  }, 200);
+  }, gameSpeed);
   timerIntervalId = setInterval(() => {
     const currentTime = time.split("-");
     let minutes = parseInt(currentTime[0]);
@@ -231,3 +256,48 @@ addEventListener("keydown", (event) => {
     canChangeDirection = false;
   }
 });
+
+function gameOverAnimation() {
+  clearInterval(intervalId);
+  clearInterval(timerIntervalId);
+
+  let blinkCount = 0;
+
+  const blinkInterval = setInterval(() => {
+    snake.forEach((segment, index) => {
+      const block = blocks[`${segment.x}-${segment.y}`];
+
+      if (blinkCount % 2 === 0) {
+        block.classList.remove("fill");
+        block.classList.remove("head");
+      } else {
+        if (index === 0) {
+          block.classList.add("head");
+        } else {
+          block.classList.add("fill");
+        }
+      }
+    });
+
+    blinkCount++;
+
+    if (blinkCount === 6) {
+      clearInterval(blinkInterval);
+
+      modal.style.display = "flex";
+      startGameModal.style.display = "none";
+      gameOverModal.style.display = "flex";
+      backgroundMusicPlayer();
+    }
+  }, 150);
+}
+
+function backgroundMusicPlayer() {
+  if (modal.style.display === "none") {
+    backgroundSong.play();
+    backgroundSong.currentTime = 0;
+  } else {
+    backgroundSong.currentTime = 0;
+    backgroundSong.pause();
+  }
+}

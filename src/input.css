@@ -49,10 +49,45 @@ section .infos{
 }
 
 .head{
-    border-radius: 50%;
-    background-color: #fdfdfc;
+    width:20px;
+    height:20px;
+    background: #39ff14;
+    position: relative;
+    border-radius: 40%;
+  clip-path: polygon(
+    35% 0%,
+    65% 0%,
+    80% 15%,
+    100% 35%,
+    100% 65%,
+    80% 85%,
+    65% 100%,
+    35% 100%,
+    20% 85%,
+    0% 65%,
+    0% 35%,
+    20% 15%
+  );
 }
 
+.head::before,
+.head::after{
+    content: "";
+    width: 4px;
+    height: 4px;
+    background: black;
+    border-radius: 50%;
+    position: absolute;
+    top: 6px;
+}
+
+.head::before{
+    left: 4px;
+}
+
+.head::after{
+    right: 4px;
+}
 
 h3{
     font-size: 24px;
@@ -64,4 +99,20 @@ h3{
     font-size: 18px;
     display: block;
     text-align: center;
+}
+
+@keyframes blink{
+    0%{
+        opacity: 1;
+    }
+    50%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
+.blink{
+    animation: blink 0.2s linear infinite;
 }
