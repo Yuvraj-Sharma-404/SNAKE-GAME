@@ -30,6 +30,7 @@ const songs = [
   backgroundSong5,
 ];
 let randomIndex = Math.floor(Math.random() * songs.length);
+let randomSong = songs[randomIndex];
 
 highScoreElement.innerText = highScore;
 const cols = Math.floor(board.clientWidth / blockWidth);
@@ -93,8 +94,8 @@ function render() {
 
   // WALL COLLISION
   if (head.x < 0 || head.x >= rows || head.y < 0 || head.y >= cols) {
-    songs[randomIndex].pause();
-    songs[randomIndex].currentTime = 0;
+    randomSong.pause();
+    randomSong.currentTime = 0;
     gameOverSound.currentTime = 0;
     gameOverSound.play();
     gameOverAnimation();
@@ -103,8 +104,8 @@ function render() {
 
   // SELF COLLISION
   if (snake.some((segment) => segment.x === head.x && segment.y === head.y)) {
-    songs[randomIndex].pause();
-    songs[randomIndex].currentTime = 0;
+    randomSong.pause();
+    randomSong.currentTime = 0;
     gameOverSound.currentTime = 0;
     gameOverSound.play();
     gameOverAnimation();
@@ -345,11 +346,10 @@ function gameOverAnimation() {
 
 function backgroundMusicPlayer() {
   if (modal.style.display === "none") {
-    randomIndex = Math.floor(Math.random() * songs.length);
-    songs[randomIndex].play();
-    songs[randomIndex].currentTime = 0;
+    randomSong.play();
+    randomSong.currentTime = 0;
   } else {
-    songs[randomIndex].currentTime = 0;
-    songs[randomIndex].pause();
+    randomSong.currentTime = 0;
+    randomSong.pause();
   }
 }
