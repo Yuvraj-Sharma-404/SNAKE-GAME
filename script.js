@@ -16,7 +16,21 @@ let time = `00-00`;
 let gameSpeed = 200;
 const eatSound = document.querySelector("#eat-sound");
 const gameOverSound = document.querySelector("#gameover-sound");
-const backgroundSong = document.querySelector("#song");
+const backgroundSong1 = document.querySelector("#song1");
+const backgroundSong2 = document.querySelector("#song2");
+const backgroundSong3 = document.querySelector("#song3");
+const backgroundSong4 = document.querySelector("#song4");
+const backgroundSong5 = document.querySelector("#song5");
+
+const songs = [
+  backgroundSong1,
+  backgroundSong2,
+  backgroundSong3,
+  backgroundSong4,
+  backgroundSong5,
+];
+let randomIndex = Math.floor(Math.random() * songs.length);
+
 highScoreElement.innerText = highScore;
 const cols = Math.floor(board.clientWidth / blockWidth);
 const rows = Math.floor(board.clientHeight / blockHeight);
@@ -79,8 +93,8 @@ function render() {
 
   // WALL COLLISION
   if (head.x < 0 || head.x >= rows || head.y < 0 || head.y >= cols) {
-    backgroundSong.pause();
-    backgroundSong.currentTime = 0;
+    songs[randomIndex].pause();
+    songs[randomIndex].currentTime = 0;
     gameOverSound.currentTime = 0;
     gameOverSound.play();
     gameOverAnimation();
@@ -89,8 +103,8 @@ function render() {
 
   // SELF COLLISION
   if (snake.some((segment) => segment.x === head.x && segment.y === head.y)) {
-    backgroundSong.pause();
-    backgroundSong.currentTime = 0;
+    songs[randomIndex].pause();
+    songs[randomIndex].currentTime = 0;
     gameOverSound.currentTime = 0;
     gameOverSound.play();
     gameOverAnimation();
@@ -257,6 +271,43 @@ addEventListener("keydown", (event) => {
   }
 });
 
+let touchStartX = 0;
+let touchStartY = 0;
+
+addEventListener("touchstart", (event) => {
+  touchStartX = event.touches[0].clientX;
+  touchStartY = event.touches[0].clientY;
+});
+
+addEventListener("touchend", (event) => {
+  if (!canChangeDirection) return;
+
+  const touchEndX = event.changedTouches[0].clientX;
+  const touchEndY = event.changedTouches[0].clientY;
+  const diffX = touchEndX - touchStartX;
+  const diffY = touchEndY - touchStartY;
+
+  if (Math.abs(diffX) > Math.abs(diffY)) {
+    // Horizontal swipe
+    if (diffX > 0 && direction !== "left") {
+      direction = "right";
+      canChangeDirection = false;
+    } else if (diffX < 0 && direction !== "right") {
+      direction = "left";
+      canChangeDirection = false;
+    }
+  } else {
+    // Vertical swipe
+    if (diffY > 0 && direction !== "up") {
+      direction = "down";
+      canChangeDirection = false;
+    } else if (diffY < 0 && direction !== "down") {
+      direction = "up";
+      canChangeDirection = false;
+    }
+  }
+});
+
 function gameOverAnimation() {
   clearInterval(intervalId);
   clearInterval(timerIntervalId);
@@ -294,10 +345,11 @@ function gameOverAnimation() {
 
 function backgroundMusicPlayer() {
   if (modal.style.display === "none") {
-    backgroundSong.play();
-    backgroundSong.currentTime = 0;
+    randomIndex = Math.floor(Math.random() * songs.length);
+    songs[randomIndex].play();
+    songs[randomIndex].currentTime = 0;
   } else {
-    backgroundSong.currentTime = 0;
-    backgroundSong.pause();
+    songs[randomIndex].currentTime = 0;
+    songs[randomIndex].pause();
   }
 }

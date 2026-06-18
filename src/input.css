@@ -2,58 +2,59 @@
 @tailwind components;
 @tailwind utilities;
 
-section .infos{
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
+section .infos {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
 
-.info{
-    padding: 8px 16px;
-    border: 1px solid #333;
-    border-radius: 8px;
+.info {
+  padding: 8px 16px;
+  border: 1px solid #1f2937;
+  border-radius: 8px;
+  color: #e6edf3;
 }
 
-.block{
-    border: 1px solid #0a0a0a ;
-    border-radius: 30%;
-    
+.block {
+  border: 1px solid #0d1120;
+  border-radius: 30%;
 }
 
-.fill{
-    background-color: #fdfdfc;
+.fill {
+  background-color: #1a7a4a;
 }
 
-.food{
-    background-color: #ff3b3b;
-    border-radius: 50%;
-    
+.food {
+  background-color: #ff4757;
+  border-radius: 50%;
 }
 
-.modal{
-    backdrop-filter: blur(4px);
+.modal {
+  backdrop-filter: blur(4px);
 }
 
-.btn{
-    padding: 8px 16px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    background-color: #fdfdfc;
-    color: #333;
+.btn {
+  padding: 8px 16px;
+  border: 1px solid #39ff88;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: #161b22;
+  color: #39ff88;
 }
 
-.btn:hover{
-    transform: scale(1.1);
+.btn:hover {
+  transform: scale(1.1);
+  background-color: #39ff88;
+  color: #0d1117;
 }
 
-.head{
-    width:20px;
-    height:20px;
-    background: #39ff14;
-    position: relative;
-    border-radius: 40%;
+.head {
+  width: 20px;
+  height: 20px;
+  background: #39ff88;
+  position: relative;
+  border-radius: 40%;
   clip-path: polygon(
     35% 0%,
     65% 0%,
@@ -71,48 +72,49 @@ section .infos{
 }
 
 .head::before,
-.head::after{
-    content: "";
-    width: 4px;
-    height: 4px;
-    background: black;
-    border-radius: 50%;
-    position: absolute;
-    top: 6px;
+.head::after {
+  content: "";
+  width: 4px;
+  height: 4px;
+  background: black;
+  border-radius: 50%;
+  position: absolute;
+  top: 6px;
 }
 
-.head::before{
-    left: 4px;
+.head::before {
+  left: 4px;
 }
 
-.head::after{
-    right: 4px;
+.head::after {
+  right: 4px;
 }
 
-h3{
-    font-size: 24px;
+h3 {
+  font-size: 24px;
 }
 
 #high-score,
 #score,
-#time{
-    font-size: 18px;
-    display: block;
-    text-align: center;
+#time {
+  font-size: 18px;
+  display: block;
+  text-align: center;
+  color: #58a6ff;
 }
 
-@keyframes blink{
-    0%{
-        opacity: 1;
-    }
-    50%{
-        opacity: 0;
-    }
-    100%{
-        opacity: 1;
-    }
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
-.blink{
-    animation: blink 0.2s linear infinite;
+.blink {
+  animation: blink 0.2s linear infinite;
 }

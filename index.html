@@ -1,46 +1,57 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" class="h-screen font-system">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Snake Game</title>
-    <link rel="stylesheet" href="build/css/style.css">
-    <link rel="stylesheet" href="src/input.css">
-</head>
-<body class="h-full bg-primary text-secondry">
+    <link rel="stylesheet" href="build/css/style.css" />
+    <link rel="stylesheet" href="src/input.css" />
+  </head>
+  <body class="h-full bg-[#0d1117] text-secondry">
     <main class="h-full">
-        <section class = "h-full p-10 flex flex-col gap-6">
-            <div class="infos flex justify-between">
-                <div class="info">
-                    <h3>High Score:</h3>
-                    <span id="high-score">0</span>
-                </div>
-                <div class="info">
-                    <h3>Score:</h3>
-                    <span id="score">0</span>
-                </div>
-                <div class="info">
-                    <h3>Time:</h3>
-                    <span id="time">00-00</span>
-                </div>
-            </div>
-            <div class="board border border-solid  border-[#333] grid flex-grow grid-cols-[repeat(auto-fill,minmax(20px,1fr))] grid-rows-[repeat(auto-fill,minmax(20px,1fr))]">
-            </div> 
-        </section>
-        <div class="modal h-screen w-screen fixed top-0 bg-[#35353587] flex justify-center items-center">
-            <div class="start-game flex flex-col items-center gap-6">
-                <b><h3>Welcome to Snake Game</h3></b>
-                <b><button class="btn btn-start ">Start Game</button></b>
-            </div>
-            <div class="game-over flex-col items-center gap-6 hidden">
-                <b><h3>Game Over!</h3></b>
-                <b><button class="btn btn-restart">Restart Game</button></b>
-            </div>
+      <section class="h-full p-10 flex flex-col gap-6">
+        <div class="infos flex justify-between">
+          <div class="info">
+            <h3>High Score:</h3>
+            <span id="high-score">0</span>
+          </div>
+          <div class="info">
+            <h3>Score:</h3>
+            <span id="score">0</span>
+          </div>
+          <div class="info">
+            <h3>Time:</h3>
+            <span id="time">00-00</span>
+          </div>
         </div>
+        <div
+          class="board border border-solid border-[#1f2937] grid flex-grow grid-cols-[repeat(auto-fill,minmax(20px,1fr))] grid-rows-[repeat(auto-fill,minmax(20px,1fr))]"
+        ></div>
+      </section>
+      <div
+        class="modal h-screen w-screen fixed top-0 bg-[#35353587] flex justify-center items-center"
+      >
+        <div class="start-game flex flex-col items-center gap-6 text-[#ffd60a]">
+          <b><h3>Welcome to Snake Game</h3></b>
+          <b
+            ><button class="btn btn-start text-[#ffd60a]">Start Game</button></b
+          >
+        </div>
+        <div
+          class="game-over flex-col items-center gap-6 hidden text-[#ffd60a]"
+        >
+          <b><h3>Game Over!</h3></b>
+          <b><button class="btn btn-restart">Restart Game</button></b>
+        </div>
+      </div>
     </main>
     <audio id="eat-sound" src="eat.mp3"></audio>
     <audio id="gameover-sound" src="gameover-sound.mp3"></audio>
-    <audio id="song" src="Background.mp3"></audio>
-    <script src="script.js"></script> 
-</body>
+    <audio id="song1" src="Background.mp3"></audio>
+    <audio id="song2" src="Background2.mp3"></audio>
+    <audio id="song3" src="background3.mp3"></audio>
+    <audio id="song4" src="Background4.mp3"></audio>
+    <audio id="song5" src="Background5.mp3"></audio>
+    <script src="script.js"></script>
+  </body>
 </html>
