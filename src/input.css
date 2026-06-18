@@ -4,7 +4,6 @@
 
 .board {
   overscroll-behavior-y: contain;
-  touch-action: none;
 }
 
 section .infos {
