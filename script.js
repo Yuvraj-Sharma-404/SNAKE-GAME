@@ -273,39 +273,50 @@ addEventListener("keydown", (event) => {
 let touchStartX = 0;
 let touchStartY = 0;
 
-addEventListener("touchstart", (event) => {
-  touchStartX = event.touches[0].clientX;
-  touchStartY = event.touches[0].clientY;
-});
+addEventListener(
+  "touchstart",
+  (event) => {
+    event.preventDefault();
+    touchStartX = event.touches[0].clientX;
+    touchStartY = event.touches[0].clientY;
+  },
+  { passive: false },
+);
 
-addEventListener("touchend", (event) => {
-  if (!canChangeDirection) return;
+addEventListener(
+  "touchend",
+  (event) => {
+    event.preventDefault();
 
-  const touchEndX = event.changedTouches[0].clientX;
-  const touchEndY = event.changedTouches[0].clientY;
-  const diffX = touchEndX - touchStartX;
-  const diffY = touchEndY - touchStartY;
+    if (!canChangeDirection) return;
 
-  if (Math.abs(diffX) > Math.abs(diffY)) {
-    // Horizontal swipe
-    if (diffX > 0 && direction !== "left") {
-      direction = "right";
-      canChangeDirection = false;
-    } else if (diffX < 0 && direction !== "right") {
-      direction = "left";
-      canChangeDirection = false;
+    const touchEndX = event.changedTouches[0].clientX;
+    const touchEndY = event.changedTouches[0].clientY;
+    const diffX = touchEndX - touchStartX;
+    const diffY = touchEndY - touchStartY;
+
+    if (Math.abs(diffX) > Math.abs(diffY)) {
+      // Horizontal swipe
+      if (diffX > 0 && direction !== "left") {
+        direction = "right";
+        canChangeDirection = false;
+      } else if (diffX < 0 && direction !== "right") {
+        direction = "left";
+        canChangeDirection = false;
+      }
+    } else {
+      // Vertical swipe
+      if (diffY > 0 && direction !== "up") {
+        direction = "down";
+        canChangeDirection = false;
+      } else if (diffY < 0 && direction !== "down") {
+        direction = "up";
+        canChangeDirection = false;
+      }
     }
-  } else {
-    // Vertical swipe
-    if (diffY > 0 && direction !== "up") {
-      direction = "down";
-      canChangeDirection = false;
-    } else if (diffY < 0 && direction !== "down") {
-      direction = "up";
-      canChangeDirection = false;
-    }
-  }
-});
+  },
+  { passive: false },
+);
 
 function gameOverAnimation() {
   clearInterval(intervalId);
