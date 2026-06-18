@@ -2,8 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-html,
-body {
+.board {
   overscroll-behavior-y: contain;
   touch-action: none;
 }
