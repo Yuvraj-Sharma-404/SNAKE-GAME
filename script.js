@@ -276,7 +276,7 @@ let touchStartY = 0;
 addEventListener(
   "touchstart",
   (event) => {
-    event.preventDefault();
+    // event.preventDefault();
     touchStartX = event.touches[0].clientX;
     touchStartY = event.touches[0].clientY;
   },
@@ -286,7 +286,7 @@ addEventListener(
 addEventListener(
   "touchend",
   (event) => {
-    event.preventDefault();
+    // event.preventDefault();
 
     if (!canChangeDirection) return;
 
