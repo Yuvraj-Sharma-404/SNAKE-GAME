@@ -660,7 +660,7 @@ video {
 }
 
 section .infos {
-  width: 90%;
+  width: 100%;
   display: flex;
   justify-content: space-between;
 }
@@ -777,4 +777,10 @@ h3 {
 
 .blink {
   animation: blink 0.2s linear infinite;
+}
+
+@media (max-width: 768px) {
+  .board {
+    height: 80%;
+  }
 }
