@@ -29,8 +29,6 @@ const songs = [
   backgroundSong4,
   backgroundSong5,
 ];
-let randomIndex = Math.floor(Math.random() * songs.length);
-let randomSong = songs[randomIndex];
 
 highScoreElement.innerText = highScore;
 const cols = Math.floor(board.clientWidth / blockWidth);
@@ -346,6 +344,8 @@ function gameOverAnimation() {
 
 function backgroundMusicPlayer() {
   if (modal.style.display === "none") {
+    randomIndex = Math.floor(Math.random() * songs.length);
+    randomSong = songs[randomIndex];
     randomSong.play();
     randomSong.currentTime = 0;
   } else {
